@@ -24,5 +24,7 @@ if "%~1"=="" (
     set asyc=0
     set /p rcon=">>>: "
     rem check for commands
-        if %rcon%==init ( set asyc=1 && echo Spawning new window... && timeout /t 5 && start cmd /k novel.bat )
+        if %rcon%==init ( set asyc=1 && echo Spawning new window... && start cmd /k novel.bat )
+        if %rcon%==cls ( set asyc=1 && call cls )
+        if %rcon%==exit ( set asyc=1 && call exit )
     goto :con
