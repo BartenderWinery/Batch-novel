@@ -1,13 +1,12 @@
-@echo off && mode con: cols=120 lines=25 && call cls && title Visual Novel - Batch && echo ==---=Max novel size=-------------------------------------------------------------------------------------------------==
+@echo off && mode con: cols=120 lines=25 && call cls && title Visual Novel - Batch
 if "%~1"=="" (
+    echo ==---=Max novel size=-------------------------------------------------------------------------------------------------==
     echo Please select a novel story. && echo: && call :list && goto :input
 ) else if "%~1"=="console" (
     goto :con
     exit /b 0
 ) else if "%~1"=="load" (
     goto :load
-    exit /b 0
-) else (
     exit /b 0
 )
 :input
@@ -22,14 +21,19 @@ if "%~1"=="" (
         if %command%==0 (
             if exist %input% ( echo: && echo Found %input%; Loading... && call :load
                 ) else ( echo: && echo No novel with the name: "%input%" was found! && echo Please make sure you have the novel file in the same directory as the batch file.)
+        ) else (
+            pause
         )
     goto input
 :list
-    call dir
+    for %%l in (*.novel) do (
+        echo %%l
+    )
     exit /b 0
 :console
     start cmd /k novel.bat console
 :con
+    echo ==--------------------------------------------------------------------------------------------------------------------==
     set asyc=0
     set /p rcon=">>>: "
     rem check for commands
@@ -38,6 +42,7 @@ if "%~1"=="" (
         if %rcon%==exit ( set asyc=1 && call exit )
     goto :con
 :load
+    echo ==--------------------------------------------------------------------------------------------------------------------==
     set apec=0 && set name=You
     set /p text="You: "
     goto :load
