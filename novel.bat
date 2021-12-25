@@ -19,30 +19,35 @@ if "%~1"=="" (
         if %input%==ref:: ( set command=1 && echo Maximum arcii art: && echo: && echo ==---=Reference=------------------------------------------------------------------------------------------------------==)
     rem check for novel by name
         if %command%==0 (
-            if exist %input% ( echo: && echo Found %input%; Loading... && call :load
+            if exist %input%.cmd ( goto :load )
+            if exist %input%.novel ( echo: && echo Found %input%; Loading... && call :load
                 ) else ( echo: && echo No novel with the name: "%input%" was found! && echo Please make sure you have the novel file in the same directory as the batch file.)
-        ) else (
-            pause
-        )
+            )
     goto input
 :list
     for %%l in (*.novel) do (
         echo %%l
     )
+    for %%l in (*.cmd) do (
+        echo %%l
+    )
     exit /b 0
 :console
     start cmd /k novel.bat console
+    exit /b 0
 :con
     echo ==--------------------------------------------------------------------------------------------------------------------==
-    set asyc=0
     set /p rcon=">>>: "
     rem check for commands
-        if %rcon%==init ( set asyc=1 && echo Spawning new window... && start cmd /k novel.bat )
-        if %rcon%==cls ( set asyc=1 && call cls )
-        if %rcon%==exit ( set asyc=1 && call exit )
+        if %rcon%==init ( echo Spawning new window... && start cmd /k novel.bat )
+        if %rcon%==cls ( call cls )
+        if %rcon%==exit ( call exit )
+        if %rcon%==restore ( echo Restoring CMD files back to .novel... && type %input%.cmd >> %input%.novel && del %input%.cmd )
     goto :con
 :load
     echo ==--------------------------------------------------------------------------------------------------------------------==
-    set apec=0 && set name=You
-    set /p text="You: "
+    set line=0
+    if not exist %input%.cmd ( if exist %input%.novel ( type %input%.novel >> %input%.cmd && del %input%.novel ) ) else ( echo Ignored %input%.novel; running cmd file instead. && echo: )
+    call %input%.cmd
+    set /p text="Say: "
     goto :load
