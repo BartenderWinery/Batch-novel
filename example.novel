@@ -1,1 +1,5 @@
-@echo off && echo hello world@echo off && echo hello world
+@echo off && set frame=0
+
+:frame_%frame%
+    echo got
+    exit /b %frame%
