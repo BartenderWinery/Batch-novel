@@ -23,8 +23,7 @@ if "%~1"=="" (
             if exist %input%.cmd ( echo Found %input%; Loading... && echo ==------------------------------------------------------------------------------------------------------------------------------------------------== && call %input%.cmd 
             ) else ( 
                 if not exist %input%.cmd ( if exist %input%.novel ( type %input%.novel >> %input%.cmd && del %input%.novel ) ) else ( echo Ignored %input%.novel; running cmd file instead. ) ) 
-            if exist %input%.novel ( if not exist %input%.cmd ( echo: && echo Found %input%; Loading... && call %input%.cmd )
-                ) else ( echo: && echo No novel with the name: "%input%" was found! && echo Please make sure you have the novel file in the same directory as the batch file.)
+            if not exist %input%.novel ( if not exist %input%.cmd ( No novel with the name: "%input%" was found! && echo Please make sure you have the novel file in the same directory as the batch file. ) )
             )
     goto input
 :list
@@ -45,6 +44,6 @@ if "%~1"=="" (
         if %rcon%==init ( echo Spawning new window... && start cmd /k novel.bat )
         if %rcon%==cls ( call cls )
         if %rcon%==exit ( call exit )
-        if %rcon%==restore ( set /p input="Restore:" && echo Restoring CMD files back to .novel... && type %input%.cmd >> %input%.novel && del %input%.cmd )
+        if %rcon%==restore ( set /p input="Restore: " && echo Restoring CMD files back to .novel... && type %input%.cmd >> %input%.novel && del %input%.cmd )
         if %rcon%==create ( echo Generating novels not yet supported. )
     goto :con
