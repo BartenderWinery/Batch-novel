@@ -42,7 +42,7 @@ if "%~1"=="" (
         if %rcon%==init ( echo Spawning new window... && start cmd /k novel.bat )
         if %rcon%==cls ( call cls )
         if %rcon%==exit ( call exit )
-        if %rcon%==restore ( echo Restoring CMD files back to .novel... && type %input%.cmd >> %input%.novel && del %input%.cmd )
+        if %rcon%==restore ( set /p input="Restore:" && echo Restoring CMD files back to .novel... && type %input%.cmd >> %input%.novel && del %input%.cmd )
     goto :con
 :load
     echo ==--------------------------------------------------------------------------------------------------------------------==
