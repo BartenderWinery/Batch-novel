@@ -8,6 +8,8 @@
 
  The entire thing is very simple and easily reproducable. Batch is just a little weird.
 
+ The novel files, when converted back into cmd. Are completely runnable by themselves. The novel script only giving it extra functions such as console, restoring back to novel, and easy access to other novels.
+
 # Modding
  .novel files are simply cmd files renamed. You can create paths however you want and mod it to whatever you want to. Any echos are passed over to the main window.
 

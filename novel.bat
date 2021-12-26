@@ -44,6 +44,6 @@ if "%~1"=="" (
         if %rcon%==init ( echo Spawning new window... && start cmd /k novel.bat )
         if %rcon%==cls ( call cls )
         if %rcon%==exit ( call exit )
-        if %rcon%==restore ( set /p input="Restore: " && echo Restoring CMD files back to .novel... && type %input%.cmd >> %input%.novel && del %input%.cmd )
+        if %rcon%==restore ( set /p input="Restore: " && if exist %input%.cmd ( echo Restoring CMD files back to .novel... && type %input%.cmd >> %input%.novel && del %input%.cmd ) else ( echo Make sure to type the specific file extension on the end of the requested file ) )
         if %rcon%==create ( echo Generating novels not yet supported. )
     goto :con
